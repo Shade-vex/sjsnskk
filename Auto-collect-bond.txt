@@ -1,0 +1,58 @@
+--// Tạo GUI che toàn màn hình
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Name = "BondStealerGUI"
+ScreenGui.Parent = game.CoreGui
+
+local BlackFrame = Instance.new("Frame")
+BlackFrame.Size = UDim2.new(1, 0, 1, 0)
+BlackFrame.Position = UDim2.new(0, 0, 0, 0)
+BlackFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+BlackFrame.Parent = ScreenGui
+
+--// Tạo label "Đang nhặt bond"
+local TitleLabel = Instance.new("TextLabel")
+TitleLabel.Size = UDim2.new(1, 0, 0, 50)
+TitleLabel.Position = UDim2.new(0, 0, 0.4, 0) -- trên tâm 1 chút
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Text = "Đang nhặt bond"
+TitleLabel.TextColor3 = Color3.new(1, 1, 1)
+TitleLabel.TextScaled = true
+TitleLabel.Font = Enum.Font.GothamBold
+TitleLabel.Parent = BlackFrame
+
+--// Tạo label Thời gian
+local TimeLabel = Instance.new("TextLabel")
+TimeLabel.Size = UDim2.new(1, 0, 0, 50)
+TimeLabel.Position = UDim2.new(0, 0, 0.5, -25) -- chính giữa
+TimeLabel.BackgroundTransparency = 1
+TimeLabel.Text = "0:00"
+TimeLabel.TextColor3 = Color3.new(1, 1, 1)
+TimeLabel.TextScaled = true
+TimeLabel.Font = Enum.Font.GothamBold
+TimeLabel.Parent = BlackFrame
+
+--// Tạo label "Make by YanghoVN"
+local FooterLabel = Instance.new("TextLabel")
+FooterLabel.Size = UDim2.new(1, 0, 0, 50)
+FooterLabel.Position = UDim2.new(0, 0, 0.6, 0) -- dưới tâm 1 chút
+FooterLabel.BackgroundTransparency = 1
+FooterLabel.Text = "Make by YanghoVN script đây"
+FooterLabel.TextColor3 = Color3.new(1, 1, 1)
+FooterLabel.TextScaled = true
+FooterLabel.Font = Enum.Font.GothamBold
+FooterLabel.Parent = BlackFrame
+
+--// Bắt đầu đếm thời gian
+local startTime = tick()
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    local elapsed = math.floor(tick() - startTime)
+    local minutes = math.floor(elapsed / 60)
+    local seconds = elapsed % 60
+    TimeLabel.Text = string.format("%d:%02d", minutes, seconds)
+end)
+
+--// Load thêm script chính
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/sjsnskk/refs/heads/main/TheFastestBondStealer.lua.txt"))()
