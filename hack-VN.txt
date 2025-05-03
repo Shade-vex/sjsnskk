@@ -1250,7 +1250,7 @@ AddButton(Tab3o, {
 
 
 AddButton(Tab4o, {
-    Name = "TP đến kết thúc",
+    Name = "Đến kết thúc",
     Callback = function()
         local Players = game:GetService("Players")
         local LocalPlayer = Players.LocalPlayer
@@ -1337,7 +1337,7 @@ AddButton(Tab4o, {
 
 
 AddButton(Tab4o, {
-    Name = "TP đến kết thúc",
+    Name = "Đến kết thúc V2",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/0.1%25loading.txt"))()
         game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -1369,7 +1369,7 @@ AddButton(Tab4o, {
 
 
 AddButton(Tab4o, {
-    Name = "TP đến phòng thí nghiệm",
+    Name = "Đến nhà tesla",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/Tptotesla.lua.txt"))()
         game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -1385,7 +1385,7 @@ AddButton(Tab4o, {
 
 
 AddButton(Tab4o, {
-    Name = "TP đến lâu đài chó sói",
+    Name = "Đến lâu đài",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/FASTCASTLE.txt"))()
         game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -1400,7 +1400,7 @@ AddButton(Tab4o, {
 
 
 AddButton(Tab4o, {
-    Name = "TP đến thành xác sống",
+    Name = "Đến thành zombie",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/Tpfort.lua.txt"))()
         game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -1414,7 +1414,7 @@ AddButton(Tab4o, {
 
 
 AddButton(Tab4o, {
-    Name = "TP đến làng bỏ hoang",
+    Name = "Đến làng hoang",
     Callback = function()
         -- Chạy script từ link
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/TPsterling.txt"))()
@@ -1436,7 +1436,7 @@ AddButton(Tab4o, {
 
 
 AddButton(Tab4o, {
-    Name = "TP đến nông trại",
+    Name = "Đến nông trại",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/tptofarm.lua.txt"))()
         game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -1451,7 +1451,7 @@ AddButton(Tab4o, {
 
 
 AddButton(Tab4o, {
-    Name = "TP đến ngân hàng",
+    Name = "Đến ngân hàng",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/Banktp.txt"))()
         game:GetService("StarterGui"):SetCore("SendNotification", {
