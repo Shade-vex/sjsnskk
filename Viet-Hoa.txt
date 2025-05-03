@@ -88,10 +88,9 @@ CheckKeyButton.MouseButton1Click:Connect(function()
 	if KeyBox.Text == correctKey then
 		writefile(fileName, correctKey .. "|" .. tostring(tick()))
 		ScreenGui:Destroy()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/sjsnskk/refs/heads/main/Viet-Hoa.txt"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/sjsnskk/refs/heads/main/hack-VN.txt"))()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/0%2C2%25loading.txt"))()
 	else
 		KeyBox.Text = "Key không đúng!"
 	end
 end)
-
