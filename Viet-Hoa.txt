@@ -52,7 +52,7 @@ Title.TextSize = 18
 local GetKeyButton = Instance.new("TextButton", MainFrame)
 GetKeyButton.Size = UDim2.new(0, 260, 0, 30)
 GetKeyButton.Position = UDim2.new(0.5, -130, 0, 40)
-GetKeyButton.Text = "Lấy key tại đây"
+GetKeyButton.Text = "Nhận Key Pro"
 GetKeyButton.Font = Enum.Font.Gotham
 GetKeyButton.TextSize = 14
 GetKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -73,7 +73,7 @@ Instance.new("UICorner", KeyBox).CornerRadius = UDim.new(0, 6)
 local CheckKeyButton = Instance.new("TextButton", MainFrame)
 CheckKeyButton.Size = UDim2.new(0, 260, 0, 30)
 CheckKeyButton.Position = UDim2.new(0.5, -130, 0, 120)
-CheckKeyButton.Text = "Nhận Key Pro"
+CheckKeyButton.Text = "Kiểm tra Key"
 CheckKeyButton.Font = Enum.Font.Gotham
 CheckKeyButton.TextSize = 14
 CheckKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -88,7 +88,7 @@ CheckKeyButton.MouseButton1Click:Connect(function()
 	if KeyBox.Text == correctKey then
 		writefile(fileName, correctKey .. "|" .. tostring(tick()))
 		ScreenGui:Destroy()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/0%25Loading.txt"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/sjsnskk/refs/heads/main/Viet-Hoa.txt"))()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/0%2C2%25loading.txt"))()
 	else
 		KeyBox.Text = "Key không đúng!"
