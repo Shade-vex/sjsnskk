@@ -5,7 +5,7 @@ local LocalPlayer = Players.LocalPlayer
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local Humanoid = Character:WaitForChild("Humanoid")
 
-local healThreshold = 25
+local healThreshold = 40
 local healingInProgress = false
 local autoHealEnabled = false  -- mặc định tắt
 
