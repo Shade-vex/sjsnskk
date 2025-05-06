@@ -1,0 +1,74 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+
+local healThreshold = 25
+local healingInProgress = false
+local autoHealEnabled = false  -- mặc định tắt
+
+local function findHealingItem()
+    local Backpack = LocalPlayer:WaitForChild("Backpack")
+    local SnakeOil, Bandage
+    for _, item in ipairs(Backpack:GetChildren()) do
+        if item:IsA("Tool") then
+            if item.Name:find("Snake Oil") then
+                SnakeOil = item
+            elseif item.Name:find("Bandage") then
+                Bandage = item
+            end
+        end
+    end
+    return SnakeOil, Bandage
+end
+
+local function useSoiL()
+    local tool = LocalPlayer.Character:FindFirstChild("Snake Oil")
+    if tool then
+        tool.Use:FireServer(tool)
+    end
+end
+
+local function useBdage()
+    local tool = LocalPlayer.Character:FindFirstChild("Bandage")
+    if tool then
+        tool.Use:FireServer()
+    end
+end
+
+local function useHealingItem()
+    if healingInProgress then return end
+    healingInProgress = true
+
+    while autoHealEnabled and Humanoid.Health < (Humanoid.MaxHealth * (healThreshold / 100)) do
+        local SnakeOil, Bandage = findHealingItem()
+
+        if SnakeOil then
+            SnakeOil.Parent = Character
+            task.wait(0.1)
+            useSoiL()
+            break
+        elseif Bandage then
+            Bandage.Parent = Character
+            task.wait(0.2)
+            useBdage()
+        else
+            break
+        end
+    end
+
+    healingInProgress = false
+end
+
+RunService.Heartbeat:Connect(function()
+    if autoHealEnabled and not healingInProgress and Humanoid.Health < (Humanoid.MaxHealth * (healThreshold / 100)) then
+        useHealingItem()
+    end
+end)
+
+-- Hàm bật/tắt toàn bộ chức năng
+_G.ToggleAutoHeal = function()
+    autoHealEnabled = not autoHealEnabled
+end
