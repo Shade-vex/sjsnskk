@@ -389,6 +389,77 @@ AddButton(Tab2o, {
 
 
 
+local autoPickupEnabled = false
+local pickupLoop
+
+AddButton(Tab2o, {
+    Name = "Nhặt băng & dầu rắn",
+    Callback = function()
+        autoPickupEnabled = not autoPickupEnabled
+
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Thông báo",
+            Text = autoPickupEnabled and "Nhặt băng & dầu rắn [bật]" or "Nhặt băng & dầu rắn [tắt]",
+            Duration = 2
+        })
+
+        if autoPickupEnabled then
+            local ReplicatedStorage1 = game:GetService("ReplicatedStorage")
+            local RuntimeItems1 = workspace:WaitForChild("RuntimeItems")
+            local PickUpTool = ReplicatedStorage1.Remotes.Tool.PickUpTool
+            local RunService1 = game:GetService("RunService")
+
+            pickupLoop = RunService1.Heartbeat:Connect(function()
+                for _, itemName in ipairs({"Bandage", "Snake Oil"}) do
+                    local item = RuntimeItems1:FindFirstChild(itemName)
+                    if item then
+                        PickUpTool:FireServer(item)
+                    end
+                end
+                task.wait(0.5)
+            end)
+        else
+            if pickupLoop then
+                pickupLoop:Disconnect()
+                pickupLoop = nil
+            end
+        end
+    end
+})
+
+
+
+
+AddButton(Tab2o, {
+    Name = "Tự nhặt súng",
+    Callback = function()
+        pcall(function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/sjsnskk/refs/heads/main/pickupgun"))()
+            if _G.ToggleAutoPickupGun then
+                _G.ToggleAutoPickupGun()
+            end
+        end)
+    end
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 -- Biến kiểm soát
