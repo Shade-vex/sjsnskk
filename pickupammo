@@ -1,7 +1,8 @@
+-- Auto Pickup Ammo System
+
 local remotePromise1 = game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject
-local autoCollectEnabled = false
-local ammoConnection
 local runtimeItems = workspace:WaitForChild("RuntimeItems")
+local ammoConnection
 
 local ammoTypes = {
     "RevolverAmmo", "ShotgunAmmo", "RifleAmmo", "ShotgunShells"
@@ -15,36 +16,32 @@ local function collectAmmo()
     end
 end
 
-local function startAutoCollect()
+_G._StartPickupAmmo = function()
+    collectAmmo()
     if ammoConnection then ammoConnection:Disconnect() end
     ammoConnection = runtimeItems.ChildAdded:Connect(function(child)
-        if autoCollectEnabled and table.find(ammoTypes, child.Name) then
+        if table.find(ammoTypes, child.Name) then
             task.wait(0.1)
             remotePromise1:FireServer(child)
         end
     end)
+
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Pickup Ammo",
+        Text = "Đã bật",
+        Duration = 3
+    })
 end
 
-local function stopAutoCollect()
+_G._StopPickupAmmo = function()
     if ammoConnection then
         ammoConnection:Disconnect()
         ammoConnection = nil
     end
-end
-
-_G._toggleAmmoPickup = function()
-    autoCollectEnabled = not autoCollectEnabled
-
-    if autoCollectEnabled then
-        collectAmmo()
-        startAutoCollect()
-    else
-        stopAutoCollect()
-    end
 
     game:GetService("StarterGui"):SetCore("SendNotification", {
         Title = "Pickup Ammo",
-        Text = "Auto pickup ammo [" .. (autoCollectEnabled and "ON" or "OFF") .. "]",
+        Text = "Đã tắt",
         Duration = 3
     })
 end
