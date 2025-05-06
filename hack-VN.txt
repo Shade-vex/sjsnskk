@@ -308,6 +308,87 @@ AddButton(Tab2o, {
 
 
 
+local collecting = false
+local connection
+local originalHoldDurations1 = {}
+local runService = game:GetService("RunService")
+
+AddButton(Tab2o, {
+    Name = "Nhặt túi tiền",
+    Callback = function()
+        collecting = not collecting
+
+        if collecting then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Auto collect money bag [ON]",
+                Text = "Script by YanghoVN",
+                Duration = 3
+            })
+
+            local function skipHoldPrompt1(prompt)
+                if prompt and prompt:IsA("ProximityPrompt") and prompt.Parent and prompt.Parent.Name == "MoneyBag" then
+                    if not originalHoldDurations1[prompt] then
+                        originalHoldDurations1[prompt] = prompt.HoldDuration
+                    end
+                    prompt.HoldDuration = 0
+                end
+            end
+
+            local function handleMoneyBag(v)
+                if not collecting then return end
+                if v:IsA("Model") and v.Name == "Moneybag" and v:FindFirstChild("MoneyBag") then
+                    local prompt = v.MoneyBag:FindFirstChildOfClass("ProximityPrompt")
+                    if prompt then
+                        skipHoldPrompt1(prompt)
+                    end
+                end
+            end
+
+            -- Quét các túi tiền đã tồn tại
+            for _, v in ipairs(workspace.RuntimeItems:GetChildren()) do
+                handleMoneyBag(v)
+            end
+
+            -- Tự động nhặt mới
+            connection = runService.Heartbeat:Connect(function()
+                for _, v in ipairs(workspace.RuntimeItems:GetChildren()) do
+                    if v:IsA("Model") and v.Name == "Moneybag" and v:FindFirstChild("MoneyBag") then
+                        local prompt = v.MoneyBag:FindFirstChildOfClass("ProximityPrompt")
+                        if prompt and (v.MoneyBag.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= prompt.MaxActivationDistance then
+                            fireproximityprompt(prompt)
+                        end
+                    end
+                end
+            end)
+
+        else
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Auto collect money bag [OFF]",
+                Text = "Script by YanghoVN",
+                Duration = 3
+            })
+
+            if connection then
+                connection:Disconnect()
+                connection = nil
+            end
+
+            -- Khôi phục HoldDuration cũ
+            for prompt, duration in pairs(originalHoldDurations1) do
+                if prompt and prompt.Parent and prompt.Parent.Name == "MoneyBag" then
+                    prompt.HoldDuration = duration
+                end
+            end
+            originalHoldDurations1 = {}
+        end
+    end
+})
+
+
+
+
+
+
 
 
 -- Biến kiểm soát
