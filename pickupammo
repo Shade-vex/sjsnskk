@@ -1,0 +1,54 @@
+local remotePromise1 = game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject
+local autoCollectEnabled = false
+local ammoConnection
+local runtimeItems = workspace:WaitForChild("RuntimeItems")
+
+local ammoTypes = {
+    "RevolverAmmo", "ShotgunAmmo", "RifleAmmo", "ShotgunShells"
+}
+
+local function collectAmmo()
+    for _, item in ipairs(runtimeItems:GetChildren()) do
+        if table.find(ammoTypes, item.Name) then
+            remotePromise1:FireServer(item)
+        end
+    end
+end
+
+local function startAutoCollect()
+    if ammoConnection then ammoConnection:Disconnect() end
+    ammoConnection = runtimeItems.ChildAdded:Connect(function(child)
+        if autoCollectEnabled and table.find(ammoTypes, child.Name) then
+            task.wait(0.1) -- Small delay to ensure ammo is registered
+            remotePromise1:FireServer(child)
+        end
+    end)
+end
+
+local function stopAutoCollect()
+    if ammoConnection then
+        ammoConnection:Disconnect()
+        ammoConnection = nil
+    end
+end
+
+-- Bật/tắt Auto Pickup Ammo
+local function toggleAutoCollect()
+    autoCollectEnabled = not autoCollectEnabled
+
+    if autoCollectEnabled then
+        collectAmmo()
+        startAutoCollect()
+    else
+        stopAutoCollect()
+    end
+
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Pickup Ammo",
+        Text = "Auto pickup ammo [" .. (autoCollectEnabled and "ON" or "OFF") .. "]",
+        Duration = 3
+    })
+end
+
+-- Return toggle function to be used externally
+return toggleAutoCollect
