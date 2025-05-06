@@ -314,7 +314,7 @@ local originalHoldDurations1 = {}
 local runService = game:GetService("RunService")
 
 AddButton(Tab2o, {
-    Name = "Nhặt túi tiền",
+    Name = "Tự nhặt túi tiền",
     Callback = function()
         collecting = not collecting
 
@@ -393,7 +393,7 @@ local autoPickupEnabled = false
 local pickupLoop
 
 AddButton(Tab2o, {
-    Name = "Nhặt băng & dầu rắn",
+    Name = "Tự nhặt băng, dầu rắn",
     Callback = function()
         autoPickupEnabled = not autoPickupEnabled
 
@@ -431,7 +431,7 @@ AddButton(Tab2o, {
 
 
 AddButton(Tab2o, {
-    Name = "Tự nhặt súng",
+    Name = "Tự động nhặt súng",
     Callback = function()
         pcall(function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/sjsnskk/refs/heads/main/pickupgun"))()
@@ -451,7 +451,22 @@ AddButton(Tab2o, {
 
 
 
-
+AddButton(Tab2o, {
+    Name = "Tự động hồi máu",
+    Callback = function()
+        pcall(function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/sjsnskk/refs/heads/main/autoheal"))()
+            if _G.ToggleAutoHeal then
+                local isEnabled = _G.ToggleAutoHeal()
+                game:GetService("StarterGui"):SetCore("SendNotification", {
+                    Title = isEnabled and "Auto Heal [ON]" or "Auto Heal [OFF]",
+                    Text = "Script by YanghoVN",
+                    Duration = 3
+                })
+            end
+        end)
+    end
+})
 
 
 
@@ -1505,7 +1520,7 @@ AddButton(Tab4o, {
 
 
 AddButton(Tab4o, {
-    Name = "TP đến Tàu",
+    Name = "Đến Tàu hỏa",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/TPtotrain.txt"))()
         game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -1537,7 +1552,7 @@ AddButton(Tab4o, {
 
 
 AddButton(Tab4o, {
-    Name = "Đến lâu đài",
+    Name = "Đến lâu đài sói",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/FASTCASTLE.txt"))()
         game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -1566,7 +1581,7 @@ AddButton(Tab4o, {
 
 
 AddButton(Tab4o, {
-    Name = "Đến làng hoang",
+    Name = "Đến làng bỏ hoang",
     Callback = function()
         -- Chạy script từ link
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/KJ/refs/heads/main/TPsterling.txt"))()
